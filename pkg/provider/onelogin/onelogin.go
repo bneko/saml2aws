@@ -111,7 +111,8 @@ func (c *Client) Authenticate(loginDetails *creds.LoginDetails) (string, error) 
 		return "", errors.Wrap(err, "error encoding authreq")
 	}
 
-	authSubmitURL := fmt.Sprintf("https://%s/api/1/saml_assertion", host)
+	//authSubmitURL := fmt.Sprintf("https://%s/api/1/saml_assertion", host)
+	authSubmitURL := "https://api.us.onelogin.com/api/1/saml_assertion"
 
 	req, err := http.NewRequest("POST", authSubmitURL, &authBody)
 	if err != nil {
@@ -175,7 +176,8 @@ func (c *Client) Authenticate(loginDetails *creds.LoginDetails) (string, error) 
 // generateToken is used to generate access token for all OneLogin APIs.
 // For more infor read https://developers.onelogin.com/api-docs/1/oauth20-tokens/generate-tokens-2
 func generateToken(oc *Client, loginDetails *creds.LoginDetails, host string) (string, error) {
-	oauthTokenURL := fmt.Sprintf("https://%s/auth/oauth2/v2/token", host)
+	//oauthTokenURL := fmt.Sprintf("https://%s/auth/oauth2/v2/token", host)
+	oauthTokenURL := "https://api.us.onelogin.com/auth/oauth2/v2/token"
 	req, err := http.NewRequest("POST", oauthTokenURL, strings.NewReader(`{"grant_type":"client_credentials"}`))
 	if err != nil {
 		return "", errors.Wrap(err, "error building oauth token request")
